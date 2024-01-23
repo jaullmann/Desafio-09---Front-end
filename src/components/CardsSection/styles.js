@@ -15,6 +15,8 @@ export const Container = styled.section`
 
   background-color:  ${({ theme }) => theme.COLORS.DARK_BROWN};   
 
+  cursor: pointer;
+
   > h2 {
     width: 100%;    
 

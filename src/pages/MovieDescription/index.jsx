@@ -7,7 +7,7 @@ export function MovieDescription({
   title = "Movie Title", 
   description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas debitis aspernatur facilis, possimus laudantium ipsa, quia molestias aliquam soluta quod culpa. Corporis, explicabo sequi? Eligendi veritatis praesentium similique corrupti tenetur.", 
   rating = 4, 
-  tags = ["Null_tag_1", "Null_tag_2"] }) {
+  tags = ["Null 1", "Null 2"] }) {
   return (
     <Container>
       

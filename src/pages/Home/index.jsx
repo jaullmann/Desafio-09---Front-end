@@ -31,17 +31,7 @@ export function Home({ MovieCards }) {
             movieTitle={"Indiana Jones"}
             rating={3}
             description={"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo, provident ex laborum consequatur consequuntur ipsam necessitatibus, veniam commodi nesciunt doloribus quam itaque sed enim accusamus odio labore nisi voluptates ipsa!"}
-          />
-          <CardsSection
-            movieTitle={"Indiana Jones"}
-            rating={2}
-            description={"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo, provident ex laborum consequatur consequuntur ipsam necessitatibus, veniam commodi nesciunt doloribus quam itaque sed enim accusamus odio labore nisi voluptates ipsa!"}
-          />
-          <CardsSection
-            movieTitle={"Indiana Jones"}
-            rating={5}
-            description={"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo, provident ex laborum consequatur consequuntur ipsam necessitatibus, veniam commodi nesciunt doloribus quam itaque sed enim accusamus odio labore nisi voluptates ipsa!"}
-          />
+          />          
         </section>        
       </Content>     
 

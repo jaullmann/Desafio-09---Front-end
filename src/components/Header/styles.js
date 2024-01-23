@@ -3,28 +3,35 @@ import styled from "styled-components";
 
 export const Container = styled.header`
 
-  height: 116px;  
-  max-width: 1366px;
-  margin: auto;
+top: 0;
+position: sticky;
 
-  background-color: ${({ theme}) => theme.COLORS.BACKGROUND_800};
-  border-bottom: 1px solid ${({ theme}) => theme.COLORS.LIGHT_BROWN};
+width: 100%;
+border-bottom: 1px solid ${({ theme}) => theme.COLORS.LIGHT_BROWN};
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 64px;
+> div {
+    height: 116px;  
+    max-width: 1366px;
+    margin: auto;
 
-  padding: 0 123px;
+    background-color: ${({ theme}) => theme.COLORS.BACKGROUND_800};    
 
-  > a {
-    color: ${({ theme}) => theme.COLORS.PINK};
-    font-family: 'Roboto Slab', serif;
-    font-size: 24px;
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 64px;
 
-    cursor: pointer;
-  }
+    padding: 0 123px;
+
+    > a {
+      color: ${({ theme}) => theme.COLORS.PINK};
+      font-family: 'Roboto Slab', serif;
+      font-size: 24px;
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+  }  
 `;
 
 export const Input = styled.input`
