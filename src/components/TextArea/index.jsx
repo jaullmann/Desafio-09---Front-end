@@ -1,10 +1,11 @@
 import { Container } from './styles';
 
-export function TextArea() {
+export function TextArea({placeholder = "", ...rest}) {
   return (
     <Container>
       <textarea 
-        placeholder="Observações"
+        placeholder={placeholder}
+        {...rest}
       />
     </Container>    
   )

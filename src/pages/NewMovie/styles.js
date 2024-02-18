@@ -47,13 +47,14 @@ export const Content = styled.main`
 
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: left;
     gap: 24px;
 
     padding: 16px;
 
-    height: 88px;
+    /* height: 88px; */
     width: 100%;
     border-radius: 8px;
     
@@ -69,11 +70,7 @@ export const Content = styled.main`
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;  
-      font-weight: 400;
+      gap: 16px;      
 
       height: 56px;
       width: auto;
@@ -81,9 +78,22 @@ export const Content = styled.main`
 
       padding: 16px;
       border-radius: 10px;
-
-      color: ${({ theme }) => theme.COLORS.GRAY_600};
+      
       background-color: ${({ theme }) => theme.COLORS.BACKGROUND_600};
+
+      input {
+        width: 110px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;  
+        font-weight: 400;
+        background-color: transparent;
+        color: ${({ theme }) => theme.COLORS.WHITE};        
+      }
+
+      svg {
+        cursor: pointer;
+      }
+      
     }
     
   }

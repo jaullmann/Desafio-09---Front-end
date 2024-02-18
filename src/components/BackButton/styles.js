@@ -7,6 +7,8 @@ export const Container = styled(Link)`
   align-items: center;
   justify-content: flex-start;  
   gap: 8px;
+
+  width: fit-content;
   
   font-family: 'Roboto Slab', serif;
   font-size: 16px;    

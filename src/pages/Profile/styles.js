@@ -43,7 +43,7 @@ export const Container = styled.div`
     border-radius: 50%;
   }
 
-  > content section div {
+  > content section label {
     margin-top: -50px;
     margin-right: -130px;
 
@@ -62,6 +62,10 @@ export const Container = styled.div`
     svg {
       font-size: 20px; 
       color: ${({ theme }) => theme.COLORS.BLACK};
+    }
+
+    input {      
+      display: none;
     }
   }
 `;

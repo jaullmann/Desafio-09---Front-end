@@ -3,11 +3,10 @@ import { Container } from './styles'
 import { CardsSectionTag } from "../CardsSectionTag";
 
 
-export function CardsSection({ movieTitle = "Null Title", description = "Null description", 
-rating = 3, tags = ["Null"] }) {
+export function CardsSection({ movieData }) {
   return (
-    <Container $score={rating}>
-      <h2>{movieTitle}</h2>
+    <Container $score={movieData.rating}>
+      <h2>{movieData.movieTitle}</h2>
       <div className="rating">
         <FiStar/>
         <FiStar/>
@@ -15,10 +14,11 @@ rating = 3, tags = ["Null"] }) {
         <FiStar/>
         <FiStar/>
       </div>      
-      <p>{description}</p>
+      <p>{movieData.description}</p>
       <section>
-        {tags ? tags.map( tag => <CardsSectionTag gender={ tag }/> ) : undefined}
+        {movieData.tags ? movieData.tags.map( tag => <CardsSectionTag gender={ tag }/> ) : undefined}
       </section>  
+      {/* {...rest} */}
     </Container>
   )
 };

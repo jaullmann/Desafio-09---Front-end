@@ -2,11 +2,13 @@ import { MdClose } from "react-icons/md";
 import { Container } from "./styles";
 
 
-export function MovieTag({ name }){
+export function MovieTag({ value, onClick }){
 	return(
 		<Container>
-			{ name }
-			<MdClose />
+			{ value }
+			<MdClose 
+				onClick={onClick}
+			/>
 		</Container>
 	)  
 }

@@ -23,5 +23,6 @@ export const Container = styled.div`
     font-size: 24px;  
     color: ${({ theme }) => theme.COLORS.PINK};
     background-color: transparent;
+    cursor: pointer;
   }
 `;
