@@ -1,63 +1,80 @@
 import { api } from "../../../../../NodeJS/Rocketseat/desafio_08/src/services/api";
 
-import { Container, Profile, Input } from './styles';
+import { FiPlus } from "react-icons/fi"
+import { Container, Content, Button } from "./styles";
+import { Header } from "../../components/Header";
+import { CardsSection } from "../../components/CardsSection";
+
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
 
-import { useAuth } from '../../hooks/auth';
 
+export function Home() {
+  
+  const { input, setMovieIdTarget, signOut } = useAuth();
+  const [movies, setMovies] = useState([]); 
+  const [delEventTriggered, setDelEventTriggered] = useState(false);
+  const navigate = useNavigate();  
 
-export function Header(){
+  useEffect(() => {
+    async function fetchMovies() {
+      try {
+        const response = await api.get(`/notes?title=${input}`);         
+        setMovies(response.data.notesWithTags)
+        setMovieIdTarget("")        
+        return
+      } catch (e) {
+        if (response.status === 401) {
+          alert("Acesso expirado, faça login novamente.")
+          return signOut()
+        } 
+        return alert("Erro ao carregar dados dos filmes do usuário.")
+      }      
+    }
 
-  const [search, setSearch] = useState("");
-  const [movies, setMovies] = useState([]);
+    window.addEventListener('deletedMovieEvent', fetchMovies)
+    fetchMovies();    
 
-  const { signOut, user } = useAuth();
+  }, [, input, delEventTriggered]);
 
-  const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
-
-  // function handleMovieSearch(movieTitle) {
-
-  //   useEffect(() => { 
-  //     async function fetchMovies() {
-  //       const response = await api.get(`/notes?title=${search}`);
-  //       setMovies(response.data);
-  //     }
-
-  //     fetchMovies();
-
-  //   }, [search]);
-
-  // }
+  function handleDetails(movieId) {
+    navigate(`/description/${movieId}`)
+  }
 
   return (
     <Container>
+                 
+      <Header/>  
 
-      <div>
-        <Link to="/">RocketMovies</Link>
+      <Content>
 
-        <Input 
-          type="text" 
-          placeholder='Pesquisar pelo título' 
-          // onChange={() => setSearch(e.target.value)}
-        />
+        <section id='sub-header'>
+          <h2>Meus filmes</h2>
+          <Button to="/new">
+            <FiPlus/>
+            <button>Adicionar filme</button>
+          </Button>
+        </section>
 
-        <Profile>        
-          <div>
-            <Link to="/profile">
-              <strong>{user.name}</strong>
-            </Link>            
-            <span onClick={signOut}>sair</span>
-          </div>
-          <Link to="/profile">
-            <img 
-              src={avatarUrl} 
-              alt={user.name}
-            />
-          </Link>          
-        </Profile>
-      </div>     
+        <section id='cards'>
+        { movies.length ?          
+            movies.map(movie => 
+              <CardsSection
+                key={String(movie.id)}
+                movieData={movie}
+                onClick={() => handleDetails(movie.id)}
+              />
+            )
+          : 
+          <h1>
+            Nenhum filme foi encontrado
+          </h1>              
+        }         
+         
+        </section>        
+      </Content>     
 
-    </Container>
-  )
-}
+    </Container>     
+  )  
+};

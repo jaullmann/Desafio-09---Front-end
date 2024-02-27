@@ -5,6 +5,7 @@ export const Container = styled.header`
 
 top: 0;
 position: sticky;
+z-index: 10;
 
 width: 100%;
 border-bottom: 1px solid ${({ theme}) => theme.COLORS.LIGHT_BROWN};

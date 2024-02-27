@@ -1,6 +1,5 @@
-import { createContext, useContext, useState, useEffect } from "react";
-
 import { api } from "../../../../NodeJS/Rocketseat/desafio_08/src/services/api";
+import { createContext, useContext, useState, useEffect } from "react";
 
 
 export const AuthContext = createContext({});
@@ -8,6 +7,8 @@ export const AuthContext = createContext({});
 function AuthProvider({ children }) {
   // cria um objeto 'useState' vazio, para armazenar os dados do usuário quando ele for autenticado
   const [data, setData] = useState({});
+  const [input, setInput] = useState("");
+  const [movieIdTarget, setMovieIdTarget] = useState(""); 
 
   async function signIn({ email, password }) {
 
@@ -39,28 +40,30 @@ function AuthProvider({ children }) {
     setData({});
   }
 
-  async function updateProfile({ user, avatarFile }) {
+  async function updateProfile({ user, avatarFile, currentAvatar }) {
     try {
 
-      if (avatarFile) {
+      if (avatarFile) {        
         const fileUploadForm = new FormData();
         fileUploadForm.append("avatar", avatarFile);
 
         const response = await api.patch("/users/avatar", fileUploadForm);
-        user.avatar = response.data.avatar;
+        user.avatar = response.data.avatar;        
+      } else {
+        user.avatar = currentAvatar
       }
 
       await api.put("/users", user);
       localStorage.setItem("@rocketmovies:user", JSON.stringify(user));
-
       setData({ user, token: data.token });
       alert("Perfil atualizado com sucesso!");
-
+      return true;
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message);
       } else {
         alert("Não foi possível atualizar os dados do perfil.");
+        return false;
       }
     }    
   }
@@ -86,7 +89,11 @@ function AuthProvider({ children }) {
       signIn, 
       signOut,
       updateProfile,
-      user: data.user,      
+      user: data.user, 
+      setInput,
+      input,
+      setMovieIdTarget,
+      movieIdTarget      
     }}>
       {children}
     </AuthContext.Provider>

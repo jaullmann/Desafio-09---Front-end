@@ -39,11 +39,18 @@ export const Button = styled(Link)`
 export const Content = styled.main`
   margin-top: 50px;   
 
+  h1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 300px)
+  }
+
   > #sub-header {
     margin-bottom: 40px;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between;    
 
     h2 {
     font-family: "Roboto Slab", serif;

@@ -7,6 +7,7 @@ import { BackButton } from "../../components/BackButton";
 import { Button } from "../../components/Button";
 import { Container, Form } from "./styles";
 
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 import { useState } from "react";
 
@@ -20,18 +21,22 @@ export function Profile() {
   const [passwordNew, setPasswordNew] = useState();
 
   const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
+  const currentAvatar = user.avatar
 
   const [avatar, setAvatar] = useState(avatarUrl);
   const [avatarFile, setAvatarFile] = useState(null);
 
+  const navigate = useNavigate(); 
+  
   async function handleUpdate() {
     const user = {
       name,
       email,
       password: passwordNew,
       old_password: passwordOld
-    }
-    await updateProfile({ user, avatarFile });
+    }    
+    const profileUpdated = await updateProfile({ user, avatarFile, currentAvatar });
+    profileUpdated && navigate('/')
   }
 
   function handleChangeAvatar(event) {
@@ -49,7 +54,7 @@ export function Profile() {
         <BackButton/>
       </header>
 
-      <content>
+      <div id="content">
         
         <section id="profile-picture">
           <img 
@@ -95,13 +100,10 @@ export function Profile() {
             onChange={e => setPasswordNew(e.target.value)}
           />
           <Button title="Salvar" onClick={handleUpdate} />
-          {/* <link to="#">
-            Voltar para o login
-          </link> */}
 
         </Form>
         
-      </content>
+      </div>
 
     </Container>     
   )  

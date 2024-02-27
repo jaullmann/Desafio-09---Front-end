@@ -1,10 +1,29 @@
+import { api } from "../../../../../NodeJS/Rocketseat/desafio_08/src/services/api";
+import avatarPlaceholder from '../../assets/avatar_placeholder.svg';
+
 import { FiStar, FiClock } from "react-icons/fi";
 import { Container } from './styles'
 import { BackButton } from "../BackButton";
 import { MovieSectionTag } from "../MovieSectionTag";
 
+import { useAuth } from "../../hooks/auth";
 
-export function MovieSection({ movieTitle, description, rating, tags }) {
+export function MovieSection({ movieTitle, description, rating, tags, lastUpdate }) {
+
+  const { user } = useAuth();
+
+  const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
+
+  function formatDateTime(datetime) {
+    const date = new Date(datetime);  
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();  
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');  
+    return `${day}/${month}/${year} às ${hours}:${minutes}`;
+  }
+
   return (
     <Container $score={rating}>
 
@@ -26,20 +45,25 @@ export function MovieSection({ movieTitle, description, rating, tags }) {
 
         <div>
           <img 
-            src="https://github.com/jaullmann.png" 
-            alt="Ícone com foto do usuário" 
+            src={avatarUrl} 
+            alt="Foto do perfil do usuário" 
           />
           <p id="user_data">
-            Por Jorge Ullmann
+            {`Por ${user.name}`}
           </p>
           <FiClock/>
           <p id="timestamp">
-            06/01/2024 às 18:00
+            {formatDateTime(lastUpdate)}
           </p>
         </div>
 
         <section>
-          {tags ? tags.map(tag => <MovieSectionTag gender={tag}/>) : undefined}
+          {tags ? tags.map(tag => 
+            <MovieSectionTag 
+              gender={tag.name} 
+              key={String(tag.id)}
+            />) : 
+            undefined}
         </section>
 
         <article>

@@ -7,31 +7,40 @@ import { CardsSection } from "../../components/CardsSection";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
 
 
-export function Home({MovieCards}) {
-
-  const [movies, setMovies] = useState([
-    {
-      "id": 0,
-      "movieTitle": "Loading...",
-      "rating": 3,
-      "description": "Loading data...",
-      "tags": ["Loading..."]
-    }
-  ]);
+export function Home() {
+  
+  const { input, setMovieIdTarget, signOut } = useAuth();
+  const [movies, setMovies] = useState([]); 
+  const [delEventTriggered, setDelEventTriggered] = useState(false);
+  const navigate = useNavigate();  
 
   useEffect(() => {
     async function fetchMovies() {
-      const response = await api.get(`/notes`);  
-      const moviesData = await response.data.notesWithTags;    
-      setMovies(Array(moviesData))
-      // console.log(movies)
-      // console.log(typeof(movies))
+      try {
+        const response = await api.get(`/notes?title=${input}`);         
+        setMovies(response.data.notesWithTags)
+        setMovieIdTarget("")        
+        return
+      } catch (e) {
+        if (response.status === 401) {
+          alert("Acesso expirado, faça login novamente.")
+          return signOut()
+        } 
+        return alert("Erro ao carregar dados dos filmes do usuário.")
+      }      
     }
 
+    window.addEventListener('deletedMovieEvent', fetchMovies)
     fetchMovies();    
-  }, []);
+
+  }, [, input, delEventTriggered]);
+
+  function handleDetails(movieId) {
+    navigate(`/description/${movieId}`)
+  }
 
   return (
     <Container>
@@ -49,14 +58,19 @@ export function Home({MovieCards}) {
         </section>
 
         <section id='cards'>
-          {
+        { movies.length ?          
             movies.map(movie => 
               <CardsSection
-                movieData={movie}
                 key={String(movie.id)}
+                movieData={movie}
+                onClick={() => handleDetails(movie.id)}
               />
             )
-          }
+          : 
+          <h1>
+            Nenhum filme foi encontrado
+          </h1>              
+        }         
          
         </section>        
       </Content>     

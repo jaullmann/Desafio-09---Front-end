@@ -1,23 +1,24 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
+  position: relative;
   margin-bottom: 24px;
 
   display: flex;
   flex-direction: column;
 
   width: 100%;
-  height: 236px;
+  min-height: 236px;
   padding: 32px;
   border-radius: 16px;
 
   text-align: left;
 
-  background-color:  ${({ theme }) => theme.COLORS.DARK_BROWN};   
+  background-color:  ${({ theme }) => theme.COLORS.DARK_BROWN};
 
   cursor: pointer;
 
-  > h2 {
+  h2 {
     width: 100%;    
 
     font-family: 'Roboto Slab', serif;
@@ -29,7 +30,17 @@ export const Container = styled.section`
     color: ${({ theme }) => theme.COLORS.WHITE};    
   }
 
-  > div {
+  > .card-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: auto;
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+  }
+
+  > div:nth-child(3) {
     display: flex;
     gap: 6px;
 
@@ -61,17 +72,18 @@ export const Container = styled.section`
     
   }
 
-  > p {
+  > #description {    
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 400;
     text-align: justify;
     color: ${({ theme}) => theme.COLORS.GRAY_200};
-    
-    height: 65px;
-    margin-bottom: 15px;
+        
+    height: 60px;
+    margin-bottom: 20px;
 
-    overflow: hidden;
+    overflow-y: hidden;
+    white-space: pre-line;
     text-overflow: ellipsis;
   }
 

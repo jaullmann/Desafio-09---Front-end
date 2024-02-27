@@ -19,14 +19,14 @@ export const Container = styled.div`
     }
   }
 
-  > content {
+  > #content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: top;
   }
 
-  > content section {
+  > #content section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,7 +35,7 @@ export const Container = styled.div`
     margin-bottom: 64px;
   }
 
-  > content section img {
+  > #content section img {
     margin-top: -95px;
 
     height: 186px;
@@ -43,7 +43,7 @@ export const Container = styled.div`
     border-radius: 50%;
   }
 
-  > content section label {
+  > #content section label {
     margin-top: -50px;
     margin-right: -130px;
 
