@@ -25,10 +25,12 @@ export function NewMovie() {
   const [newTag, setNewTag] = useState("");
   const [previousTags, setPreviousTags] = useState({});
 
-  const { movieIdTarget, user } = useAuth();
+  const { movieIdTarget, user, setInput } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    setInput("")
+
     async function fetchMovie() {
       try {
         const response = await api.get(`/notes/${movieIdTarget}`);         
@@ -180,6 +182,7 @@ export function NewMovie() {
         <h2>{movieIdTarget ? "Editar filme" : "Novo filme"}</h2>
         <div>
           <InputMovies
+            autoFocus
             id="title-input"
             placeholder={"Título"}            
             value={title}    

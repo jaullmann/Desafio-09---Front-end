@@ -1,79 +1,53 @@
 import { api } from "../../../../../NodeJS/Rocketseat/desafio_08/src/services/api";
-
-import { FiPlus } from "react-icons/fi"
-import { Container, Content, Button } from "./styles";
-import { Header } from "../../components/Header";
-import { CardsSection } from "../../components/CardsSection";
-
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import avatarPlaceholder from '../../assets/avatar_placeholder.svg';
+import { Container, Input, Profile } from "./styles";
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from "../../hooks/auth";
+import { useState } from "react";
 
 
-export function Home() {
-  
-  const { input, setMovieIdTarget, signOut } = useAuth();
-  const [movies, setMovies] = useState([]); 
-  const [delEventTriggered, setDelEventTriggered] = useState(false);
-  const navigate = useNavigate();  
+export function Header() {
 
-  useEffect(() => {
-    async function fetchMovies() {
-      try {
-        const response = await api.get(`/notes?title=${input}`);         
-        setMovies(response.data.notesWithTags)
-        setMovieIdTarget("")        
-        return
-      } catch (e) {
-        if (response.status === 401) {
-          alert("Acesso expirado, faça login novamente.")
-          return signOut()
-        } 
-        return alert("Erro ao carregar dados dos filmes do usuário.")
-      }      
+  const { user, signOut, input, setInput } = useAuth();
+  const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
+  const [avatar] = useState(avatarUrl);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function handleMovieSearch(e) {
+    if (location !== '/') {
+      navigate('/')
+      setInput("")
     }
-
-    window.addEventListener('deletedMovieEvent', fetchMovies)
-    fetchMovies();    
-
-  }, [, input, delEventTriggered]);
-
-  function handleDetails(movieId) {
-    navigate(`/description/${movieId}`)
+    setInput(e.target.value)
   }
 
+  
   return (
     <Container>
+      <div>
+        <Link to="/">
+          RocketMovies
+        </Link>        
+        <Input
+          autoFocus
+          value={input}
+          onChange={(e) => handleMovieSearch(e)}
+          placeholder="Pesquisar pelo título"
+        />
+        <Profile>
+          <div>
+            <strong onClick={() => navigate('/profile')}>{user.name}</strong> 
+            <span onClick={signOut}>sair</span>
+          </div>
+          <Link to="/profile">                       
+            <img src={avatar} alt="" />
+          </Link>
+              
+        </Profile>
+      </div>
                  
-      <Header/>  
-
-      <Content>
-
-        <section id='sub-header'>
-          <h2>Meus filmes</h2>
-          <Button to="/new">
-            <FiPlus/>
-            <button>Adicionar filme</button>
-          </Button>
-        </section>
-
-        <section id='cards'>
-        { movies.length ?          
-            movies.map(movie => 
-              <CardsSection
-                key={String(movie.id)}
-                movieData={movie}
-                onClick={() => handleDetails(movie.id)}
-              />
-            )
-          : 
-          <h1>
-            Nenhum filme foi encontrado
-          </h1>              
-        }         
-         
-        </section>        
-      </Content>     
+      
 
     </Container>     
   )  

@@ -9,11 +9,11 @@ import { Container, Form } from "./styles";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 export function Profile() {
-  const { user, updateProfile } = useAuth();
+  const { user, updateProfile, setInput } = useAuth();
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
@@ -27,6 +27,10 @@ export function Profile() {
   const [avatarFile, setAvatarFile] = useState(null);
 
   const navigate = useNavigate(); 
+
+  useEffect(() => {
+    setInput("")
+  }, [])
   
   async function handleUpdate() {
     const user = {

@@ -23,7 +23,8 @@ function AuthProvider({ children }) {
       // insere um cabeçalho de autorização para todas as novas requisições do usuário, caso ele seja autenticado
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       // armazena os dados do usuário e o toke de autenticação no useState criado no começo da função
-      setData({ user, token })      
+      setData({ user, token })
+      setInput("")    
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message);

@@ -12,7 +12,7 @@ import { useAuth } from "../../hooks/auth";
 
 export function Home() {
   
-  const { input, setMovieIdTarget, signOut } = useAuth();
+  const { input, setInput, setMovieIdTarget, signOut } = useAuth();
   const [movies, setMovies] = useState([]); 
   const [delEventTriggered, setDelEventTriggered] = useState(false);
   const navigate = useNavigate();  
@@ -40,6 +40,7 @@ export function Home() {
 
   function handleDetails(movieId) {
     navigate(`/description/${movieId}`)
+    setInput("")
   }
 
   return (

@@ -57,7 +57,7 @@ export const Input = styled.input`
   }
 `;
 
-export const Profile = styled(Link)`  
+export const Profile = styled.div`  
   height: 68px;
 
   display: flex;

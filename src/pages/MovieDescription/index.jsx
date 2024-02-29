@@ -6,14 +6,18 @@ import { MovieSection } from "../../components/MovieSection";
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
 
 
 export function MovieDescription() {
 
   const [data, setData] = useState(null);    
+  const { setInput } = useAuth();
   const params = useParams();
 
   useEffect(() => {
+    setInput("")
+
     async function fetchMovie() {
       try {
         const response = await api.get(`/notes/${params.id}`);         
