@@ -22,6 +22,11 @@ export function Header() {
     setInput(e.target.value)
   }
 
+  function handleSignOut() {
+    navigate('/')
+    signOut();
+  }
+
   
   return (
     <Container>
@@ -38,7 +43,7 @@ export function Header() {
         <Profile>
           <div>
             <strong onClick={() => navigate('/profile')}>{user.name}</strong> 
-            <span onClick={signOut}>sair</span>
+            <span onClick={handleSignOut}>sair</span>
           </div>
           <Link to="/profile">                       
             <img src={avatar} alt="" />

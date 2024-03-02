@@ -17,5 +17,6 @@ export function BackButton({text = 'Voltar'}) {
       <FiArrowLeft/>
       <div>{text}</div>
     </Container>
-  )
+  )  
+  
 };

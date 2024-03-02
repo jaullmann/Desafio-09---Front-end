@@ -33,13 +33,18 @@ export function Profile() {
   }, [])
   
   async function handleUpdate() {
-    const user = {
+    const updated = {
       name,
       email,
       password: passwordNew,
       old_password: passwordOld
     }    
-    const profileUpdated = await updateProfile({ user, avatarFile, currentAvatar });
+
+    // Combina os dados do usuário já existentes com o novo para não perder a img do perfil, caso não
+    // seja modificada pelo usuário.
+    const userUpdated = Object.assign(user, updated);
+
+    const profileUpdated = await updateProfile({ user: userUpdated, avatarFile });
     profileUpdated && navigate('/')
   }
 
@@ -63,7 +68,7 @@ export function Profile() {
         <section id="profile-picture">
           <img 
             src={avatar} 
-            alt="Foto do usuário" 
+            alt={user.name} 
           />
           <label htmlFor="avatar">
             <FiCamera/>

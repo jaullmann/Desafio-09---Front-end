@@ -6,7 +6,7 @@ export const Container = styled.button`
   justify-content: center;  
   height: 35px;
   width: 35px;
-  background-color: ${({ theme}) => theme.COLORS.BACKGROUND_700};
+  background-color: transparent;  
   border-radius: 10px;
 
   svg {
