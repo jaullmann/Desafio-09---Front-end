@@ -4,7 +4,7 @@ import backgroundImg from '../../assets/background.png'
 export const Container = styled.div`
   height: 99vh;
   
-  max-width: 1366px;
+  /* max-width: 1366px; */
   margin: auto;
   display: flex;
   align-items: stretch;
