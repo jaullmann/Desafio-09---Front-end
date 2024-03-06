@@ -1,4 +1,4 @@
-import { api } from "../../../../../NodeJS/Rocketseat/desafio_08/src/services/api";
+import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 
 import { useState, useEffect } from "react";

@@ -1,4 +1,4 @@
-import { api } from "../../../../../NodeJS/Rocketseat/desafio_08/src/services/api";
+import { api } from "../../services/api";
 
 import { FiPlus } from "react-icons/fi"
 import { Container, Content, Button } from "./styles";

@@ -1,4 +1,4 @@
-import { api } from "../../../../../NodeJS/Rocketseat/desafio_08/src/services/api";
+import { api } from "../../services/api";
 import avatarPlaceholder from '../../assets/avatar_placeholder.svg';
 import { Container, Input, Profile } from "./styles";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
